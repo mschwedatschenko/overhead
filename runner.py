@@ -15,8 +15,9 @@ def get_route(icao24, begin, end):
         'begin': begin,
         'end': end
     }
+    response = requests.get(url, parameters=parameters)
     if response.status_code == 200:
-        return response2.json()
+        return response.json()
     else:
         print(f"error: {response.status_code}")
         return None
@@ -24,12 +25,12 @@ def get_route(icao24, begin, end):
 def file_writer(data, filename):
     try:
         with open(data, "w") as json_file:
-        json.dump(data, json_file, indent=4)
-        print(f"JSON data successfully written to {data}")
+            json.dump(data, json_file, indent=4)
+            print(f"JSON data successfully written to {data}")
     except IOError as e:
         print(f"error writing to file: {e}") 
 
-def main()
+def main():
     my_location = (42.2710, 71.8099) #wpi latitude & longitude
     data = get_data()
 
@@ -45,5 +46,5 @@ def main()
         plane_location = (lat, lon)
         dist = distance(my_location, plane_location).km
     
-        if dist < 5 and alt and alt < 2000
+        if dist < 5 and alt and alt < 2000:
             print(f"Plane {callsign} overhead!! Go take a look!")
